@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+database:
+  url: "postgres://postgres:postgres@localhost:5432/ride_sharing_app?sslmode=disable"
+
+jwt:
+  secret: "your_secret_key_here_change_it_in_production"
+  issuer: "ride-sharing-app"

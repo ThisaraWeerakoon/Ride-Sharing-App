@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_DB_URL=postgres://postgres:postgres@db:5432/ride_sharing_app?sslmode=disable
+    depends_on:
+      - db
+    networks:
+      - ride-sharing-network
+
+  db:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ride_sharing_app
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ride-sharing-network
+
+volumes:
+  postgres_data:
+
+networks:
+  ride-sharing-network:
+    driver: bridge
